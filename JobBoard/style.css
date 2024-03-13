@@ -1,0 +1,64 @@
+.container{
+  width: 100%;
+  text-align: center;
+  }
+.nav{
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+.nav a{
+  font-size: 16px;
+  text-decoration: none;
+  padding: 5px;
+  color: black;
+  background-color: white;
+  border: 1px solid black;
+  margin: -1px;
+}
+
+.nav a:hover{
+  background-color: black;
+  color: white;
+}
+.nav p {
+  padding-right: 10px;
+}
+.job__card{
+  border: 1px solid black;
+  width: 1000px;
+  margin:  30px auto;
+  padding: 10px 20px;
+  text-align: left;
+}
+form{
+  margin: 30px;
+}
+form div{
+  margin: 10px;
+}
+
+.order a{
+  margin: 20px;
+  position: relative;
+}
+
+.sort_asc:after{
+  content: '';
+  position: absolute;
+  top: 2px;
+  right: -20px;
+  border-top: 13px solid black;
+  border-right: 8px solid white;
+  border-left: 8px solid white;
+}
+
+.sort_desc:after{
+  content: '';
+  position: absolute;
+  top: 2px;
+  right: -20px;
+  border-bottom: 13px solid black;
+  border-right: 8px solid white;
+  border-left: 8px solid white;
+}
