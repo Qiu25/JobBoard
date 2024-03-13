@@ -7,7 +7,7 @@
 - [2023/12/28 設置會員資料庫 | 將註冊頁與資料庫串接 | 判斷新象是否重複及會員密碼加密](https://github.com/Qiu25/JobBoard/tree/main#20231228)
 - [2023/12/29 登入頁架構 | 資料庫簡易串接 | 密碼驗證](https://github.com/Qiu25/JobBoard/tree/main#20231229)
 - [2024/01/16 設置會員驗證及權限](https://github.com/Qiu25/JobBoard/tree/main#20240116)
-- [2024/03/13 設置會員登出](https://github.com/Qiu25/JobBoard/tree/main#2024/03/13設置會員登出)
+- [2024/03/13 設置會員登出](https://github.com/Qiu25/JobBoard/tree/main#20240313-%E8%A8%AD%E7%BD%AE%E6%9C%83%E5%93%A1%E7%99%BB%E5%87%BA)
 
 
 # 介面流程
