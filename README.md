@@ -1,4 +1,14 @@
 # 目錄
+- [介面流程](https://github.com/Qiu25/JobBoard/tree/main#%E4%BB%8B%E9%9D%A2%E6%B5%81%E7%A8%8B)
+- [2023/11/30 程式碼紀錄](https://github.com/Qiu25/JobBoard/tree/main#20231130-%E7%A8%8B%E5%BC%8F%E7%A2%BC%E7%B4%80%E9%8C%84)
+- [2023/12/04 更新 “排序功能”](https://github.com/Qiu25/JobBoard/tree/main#20231204-%E6%9B%B4%E6%96%B0-%E6%8E%92%E5%BA%8F%E5%8A%9F%E8%83%BD)
+- [2023/12/23 登入介面架構](https://github.com/Qiu25/JobBoard/tree/main#20231223-%E7%99%BB%E5%85%A5%E4%BB%8B%E9%9D%A2%E6%9E%B6%E6%A7%8B)
+- [2023/12/24 建立登入與註冊入口 | 註冊頁架構優化及排版設置](https://github.com/Qiu25/JobBoard/tree/main#20231224-%E5%BB%BA%E7%AB%8B%E7%99%BB%E5%85%A5%E8%88%87%E8%A8%BB%E5%86%8A%E5%85%A5%E5%8F%A3--%E8%A8%BB%E5%86%8A%E9%A0%81%E6%9E%B6%E6%A7%8B%E5%84%AA%E5%8C%96%E5%8F%8A%E6%8E%92%E7%89%88%E8%A8%AD%E7%BD%AE)
+- [2023/12/28 設置會員資料庫 | 將註冊頁與資料庫串接 | 判斷新象是否重複及會員密碼加密](https://github.com/Qiu25/JobBoard/tree/main#20231228)
+- [2023/12/29 登入頁架構 | 資料庫簡易串接 | 密碼驗證](https://github.com/Qiu25/JobBoard/tree/main#20231229)
+- [2024/01/16 設置會員驗證及權限](https://github.com/Qiu25/JobBoard/tree/main#20240116)
+- [2024/03/13 設置會員登出](https://github.com/Qiu25/JobBoard/tree/main#2024/03/13設置會員登出)
+
 
 # 介面流程
 
@@ -1014,5 +1024,124 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['login'])){
   }
 }
   
+?>
+```
+
+# 2024/03/13 設置會員登出
+
+## index.html
+
+```php
+<?php
+    require_once('./conn.php');
+    if($_GET){
+        $order = $_GET["order"];
+        $sort = $_GET["sort"];
+        $sql = "SELECT * from jobs ORDER BY $order $sort";
+    }else{
+        $sql = "SELECT * from jobs";
+    }
+    
+?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./style.css">
+    <title>Jobs Board</title>
+</head>
+<body>
+    <div class="container">
+        <div class="nav">
+            <?php
+                // 開啟會話
+                session_start();
+                // 檢查用戶是否登入
+                if(!isset($_SESSION["user_id"])){
+                    echo "<a href='./signup.html'>Sign Up</a>
+                          <a href='./login.html'>Log In</a>";
+                }else{
+                    echo "<p>Welcome, " . $_SESSION["user_id"] . "</p>";
+                    echo "<a href='./logout.php'>Log Out</a>";
+                }
+            ?>
+        </div>
+        <h1>Jobs Board</h1>
+        <div class="order">
+            <h3>Order By : </h2>
+            <?php
+            if($_GET){
+                if($sort !== "ASC" && $order == "title"){
+                    echo '<a class="sort_asc" href="index.php?order=title&sort=ASC">Title</a>';
+                }else{
+                    echo '<a class="sort_desc" href="index.php?order=title&sort=DESC">Title</a>';
+                }
+                if($sort !== "ASC" && $order == "salary"){
+                    echo '<a class="sort_asc" href="index.php?order=salary&sort=ASC">Salary</a>';
+                }else{
+                    echo '<a class="sort_desc" href="index.php?order=salary&sort=DESC">Salary</a>';
+                }
+                if($sort !== "ASC" && $order == "created"){
+                    echo '<a class="sort_asc" href="index.php?order=created&sort=ASC">CreatTime</a>';
+                }else{
+                    echo '<a class="sort_desc" href="index.php?order=created&sort=DESC">CreatTime</a>';
+                }
+            }else{
+                echo '<a class="sort_asc" href="index.php?order=title&sort=ASC">Title</a>'; 
+                echo '<a class="sort_asc" href="index.php?order=salary&sort=ASC">Salary</a>';
+                echo '<a class="sort_asc" href="index.php?order=created&sort=ASC">CreatTime</a>';
+            }
+
+            ?>
+        </div>
+        <div class="job__cards">
+            <?php
+                $result = $conn -> query($sql);
+                $today = (new DateTime())->format('Y-m-d');
+                if($result){
+                    while($row = $result -> fetch_assoc()){
+                        if(strtotime($today) < strtotime($row['Expiry'])){
+                            echo '<div class="job__card">';    
+                            echo    '<div class="job__title">';
+                            echo        '<h2>'.$row['Title'].'</h2>';
+                            echo    '</div>';
+                            echo    '<div class="job__desc">';
+                            echo        '<p>'.$row['Description'].'</p>';
+                            echo    '</div>';
+                            echo    '<div class="job__salary">';
+                            echo        '<p>薪資範圍：'.$row['Salary'].'</p>';
+                            echo    '</div>';
+                            echo    '<div class="job__link">';
+                            echo        '<a href="'.$row['Link'].'">更多詳情</a>';
+                            echo    '</div>';
+                            echo    '<div class="job__created">';
+                            echo        '<p>更新日期：'. $row['Created'] . '</p>';
+                            echo    '</div>';
+                            echo '</div>';
+                        }
+                    }
+                }else{
+                    echo $conn->error;
+                }
+            ?>
+        </div>
+    </div>
+</body>
+</html>
+```
+
+## logout.php
+
+```php
+<?php
+  require('conn.php');
+
+  session_start();
+
+  session_destroy();
+
+  echo "登出成功，即將轉跳";
+  die('<meta http-equiv="refresh" content="5; url=index.php">');
 ?>
 ```
