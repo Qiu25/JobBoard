@@ -21,14 +21,12 @@
     <div class="container">
         <div class="nav">
             <?php
-                // 開啟會話
-                session_start();
                 // 檢查用戶是否登入
-                if(!isset($_SESSION["user_id"])){
+                if(!isset($_COOKIE["user_id"])){
                     echo "<a href='./signup.html'>Sign Up</a>
                           <a href='./login.html'>Log In</a>";
                 }else{
-                    echo "<p>Welcome, " . $_SESSION["user_id"] . "</p>";
+                    echo "<p>Welcome, " . $_COOKIE["user_id"] . "</p>";
                     echo "<a href='./logout.php'>Log Out</a>";
                 }
             ?>
