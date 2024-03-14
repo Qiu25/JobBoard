@@ -8,7 +8,7 @@
 - [2023/12/29 登入頁架構 | 資料庫簡易串接 | 密碼驗證](https://github.com/Qiu25/JobBoard/tree/main#20231229)
 - [2024/01/16 設置會員驗證及權限](https://github.com/Qiu25/JobBoard/tree/main#20240116)
 - [2024/03/13 設置會員登出](https://github.com/Qiu25/JobBoard/tree/main#20240313-%E8%A8%AD%E7%BD%AE%E6%9C%83%E5%93%A1%E7%99%BB%E5%87%BA)
-
+- [2024/03/14 使用cookie代替sessiob進行登入狀態維持](https://github.com/Qiu25/JobBoard/blob/main/README.md#20240314-%E4%BD%BF%E7%94%A8cookie%E4%BB%A3%E6%9B%BFsessiob%E9%80%B2%E8%A1%8C%E7%99%BB%E5%85%A5%E7%8B%80%E6%85%8B%E7%B6%AD%E6%8C%81)
 
 # 介面流程
 
