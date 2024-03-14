@@ -1148,7 +1148,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['login'])){
 
 # 2024/03/14 使用cookie代替sessiob進行登入狀態維持
 
-## index.html
+## index.php
 
 ```php
 <?php
