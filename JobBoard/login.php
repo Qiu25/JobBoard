@@ -21,12 +21,12 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['login'])){
     $row = $result->fetch_assoc();
     // 驗證成功
     if(password_verify($password, $row["Password"])){
-      // session_start();
-      // 驗證成功則開啟會話，並設置會話變量
-      session_start();
-      $_SESSION["user_id"] = $row["Email"];
+      // 設定Cookie
+      setcookie("user_id", $row["Email"], time()+600);
       
-      echo 'Login Successful!';
+      // echo $_COOKIE["user_id"];
+
+      echo "Login Seccessfull";
       die('<meta http-equiv="refresh" content="5; url=index.php">');
     }else{
       echo 'Invalid Password!';
