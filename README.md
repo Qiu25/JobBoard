@@ -1290,3 +1290,244 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['login'])){
   
 ?>
 ```
+
+# 2024/03/18 設置會員入口 | 未登入者轉跳
+．登入成功者有後台入口
+．未登入者使用後台相關頁面網址將會轉跳
+．admin.php | add.php 新增會員導行列
+
+## index.php
+
+```php
+<?php
+    require_once('./conn.php');
+    if($_GET){
+        $order = $_GET["order"];
+        $sort = $_GET["sort"];
+        $sql = "SELECT * from jobs ORDER BY $order $sort";
+    }else{
+        $sql = "SELECT * from jobs";
+    }
+    
+?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./style.css">
+    <title>Jobs Board</title>
+</head>
+<body>
+    <div class="container">
+        <div class="nav">
+            <?php
+                // 檢查用戶是否登入
+                if(!isset($_COOKIE["user_id"])){
+                    echo "<a href='./signup.html'>Sign Up</a>
+                          <a href='./login.html'>Log In</a>";
+                }else{
+                    echo "<p>Welcome, " . $_COOKIE["user_id"] . "</p>";
+                    echo "<a href='./logout.php'>Log Out</a>";
+                    echo "<a href='./admin.php'>Admin</a>";
+                }
+            ?>
+        </div>
+        <h1>Jobs Board</h1>
+        
+        <div class="order">
+            <h3>Order By : </h2>
+            <?php
+            if($_GET){
+                if($sort !== "ASC" && $order == "title"){
+                    echo '<a class="sort_asc" href="index.php?order=title&sort=ASC">Title</a>';
+                }else{
+                    echo '<a class="sort_desc" href="index.php?order=title&sort=DESC">Title</a>';
+                }
+                if($sort !== "ASC" && $order == "salary"){
+                    echo '<a class="sort_asc" href="index.php?order=salary&sort=ASC">Salary</a>';
+                }else{
+                    echo '<a class="sort_desc" href="index.php?order=salary&sort=DESC">Salary</a>';
+                }
+                if($sort !== "ASC" && $order == "created"){
+                    echo '<a class="sort_asc" href="index.php?order=created&sort=ASC">CreatTime</a>';
+                }else{
+                    echo '<a class="sort_desc" href="index.php?order=created&sort=DESC">CreatTime</a>';
+                }
+            }else{
+                echo '<a class="sort_asc" href="index.php?order=title&sort=ASC">Title</a>'; 
+                echo '<a class="sort_asc" href="index.php?order=salary&sort=ASC">Salary</a>';
+                echo '<a class="sort_asc" href="index.php?order=created&sort=ASC">CreatTime</a>';
+            }
+
+            ?>
+        </div>
+        <div class="job__cards">
+            <?php
+                $result = $conn -> query($sql);
+                $today = (new DateTime())->format('Y-m-d');
+                if($result){
+                    while($row = $result -> fetch_assoc()){
+                        if(strtotime($today) < strtotime($row['Expiry'])){
+                            echo '<div class="job__card">';    
+                            echo    '<div class="job__title">';
+                            echo        '<h2>'.$row['Title'].'</h2>';
+                            echo    '</div>';
+                            echo    '<div class="job__desc">';
+                            echo        '<p>'.$row['Description'].'</p>';
+                            echo    '</div>';
+                            echo    '<div class="job__salary">';
+                            echo        '<p>薪資範圍：'.$row['Salary'].'</p>';
+                            echo    '</div>';
+                            echo    '<div class="job__link">';
+                            echo        '<a href="'.$row['Link'].'">更多詳情</a>';
+                            echo    '</div>';
+                            echo    '<div class="job__created">';
+                            echo        '<p>更新日期：'. $row['Created'] . '</p>';
+                            echo    '</div>';
+                            echo '</div>';
+                        }
+                    }
+                }else{
+                    echo $conn->error;
+                }
+            ?>
+        </div>
+    </div>
+</body>
+</html>
+```
+
+## admin.php
+
+```php
+<?php
+    require_once('./conn.php');
+
+    if(!isset($_COOKIE['user_id'])){
+        die('<meta http-equiv="refresh" content="1; url=index.php">');
+    }
+?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Jobs Board</title>
+</head>
+<body>
+    <div class="container">
+        <div class="nav">
+            <?php
+                // 檢查用戶是否登入
+                if(!isset($_COOKIE["user_id"])){
+                    die('<meta http-equiv="refresh" content="1; url=login.html">');
+                }else{
+                    echo "<p>Welcome, " . $_COOKIE["user_id"] . "</p>";
+                    echo "<a href='./logout.php'>Log Out</a>";
+                }
+            ?>
+        </div>
+        <h1>Jobs Board 後台管理</h1>
+        <a href="./add.php">新增職缺</a>
+        <div class="job__cards">
+            <?php
+                $sql = "select * from jobs";
+                $result = $conn -> query($sql);
+                if($result){
+                    while($row = $result -> fetch_assoc()){
+                        echo '<div class="job__card">
+                                <div class="job__title">
+                                    <h2>'.$row['Title'].'</h2>
+                                </div>
+                                <div class="job__desc">
+                                    <p>'.$row['Description'].'</p>
+                                </div>
+                                <div class="job__salary">
+                                    <p>薪資範圍：'.$row['Salary'].'</p>
+                                </div>
+                                <div class="job__time">
+                                    <p>更新日期：'.$row['Created'].'</p>
+                                </div>
+                                <div class="job__link">
+                                    <a href="delete.php?id='.$row["Id"].'">刪除職缺</a>
+                                    <a href="update.php?id='.$row["Id"].'">修改職缺</a>
+                                </div>
+                              </div>';
+                    }
+                }else{
+                    echo $conn->error;
+                }
+            ?>
+        </div>
+    </div>
+</body>
+</html>
+```
+
+## add.php
+
+```php
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Jobs Board 後台管理 - 新增職缺</title>
+</head>
+<body>
+    <div class="container">
+        <div class="nav">
+            <?php
+                // 檢查用戶是否登入
+                if(!isset($_COOKIE["user_id"])){
+                    die('<meta http-equiv="refresh" content="1; url=login.html">');
+                }else{
+                    ...
+                }
+            ?>
+        </div>
+        <h1>Jobs Board - 新增職缺</h1>
+        <a href="./admin.php">返回後台</a>
+        <form method="POST" action="handle_add.php">
+            <div>職缺名稱：<input type="text" name="title"></div>
+            <div>職缺描述：<textarea rows="10" name="description"></textarea></div>
+            <div>薪資範圍：<input type="text" name="salary"></div>
+            <div>職缺連結：<input type="link" name="link"></div>
+            <input type="submit" value="送出">
+        </form>
+    </div>
+</body>
+</html>
+```
+
+## handle_add.php
+
+```php
+<?php
+   require('conn.php');
+
+   if(!isset($_COOKIE["user_id"])){
+      die('<meta http-equiv="refresh" content="1; url=index.php">');
+   }
+
+?>  
+```
+
+## login.php
+
+```php
+<?php
+  require('conn.php');
+
+  // $_SERVER['REQUEST_METHOD'] & isset() 
+  if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['login'])){
+    ....
+  }else{
+    die('<meta http-equiv="refresh" content="1; url=login.html">');
+  }
+  
+?>
+```
