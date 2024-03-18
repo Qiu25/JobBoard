@@ -9,6 +9,7 @@
 - [2024/01/16 設置會員驗證及權限](https://github.com/Qiu25/JobBoard/tree/main#20240116)
 - [2024/03/13 設置會員登出](https://github.com/Qiu25/JobBoard/tree/main#20240313-%E8%A8%AD%E7%BD%AE%E6%9C%83%E5%93%A1%E7%99%BB%E5%87%BA)
 - [2024/03/14 使用cookie代替sessiob進行登入狀態維持](https://github.com/Qiu25/JobBoard/blob/main/README.md#20240314-%E4%BD%BF%E7%94%A8cookie%E4%BB%A3%E6%9B%BFsessiob%E9%80%B2%E8%A1%8C%E7%99%BB%E5%85%A5%E7%8B%80%E6%85%8B%E7%B6%AD%E6%8C%81)
+- [2024/03/18 設置會員入口 | 未登入者轉跳](https://github.com/Qiu25/JobBoard/blob/main/README.md#20240318-%E8%A8%AD%E7%BD%AE%E6%9C%83%E5%93%A1%E5%85%A5%E5%8F%A3--%E6%9C%AA%E7%99%BB%E5%85%A5%E8%80%85%E8%BD%89%E8%B7%B3)
 
 # 介面流程
 
@@ -1292,9 +1293,9 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['login'])){
 ```
 
 # 2024/03/18 設置會員入口 | 未登入者轉跳
-．登入成功者有後台入口
-．未登入者使用後台相關頁面網址將會轉跳
-．admin.php | add.php 新增會員導行列
+- 登入成功者有後台入口
+- 未登入者使用後台相關頁面網址將會轉跳
+- admin.php | add.php 新增會員導行列
 
 ## index.php
 
