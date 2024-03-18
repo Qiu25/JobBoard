@@ -1,5 +1,9 @@
 <?php
     require_once('./conn.php');
+
+    if(!isset($_COOKIE['user_id'])){
+        die('<meta http-equiv="refresh" content="1; url=index.php">');
+    }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -11,8 +15,19 @@
 </head>
 <body>
     <div class="container">
+        <div class="nav">
+            <?php
+                // 檢查用戶是否登入
+                if(!isset($_COOKIE["user_id"])){
+                    die('<meta http-equiv="refresh" content="1; url=login.html">');
+                }else{
+                    echo "<p>Welcome, " . $_COOKIE["user_id"] . "</p>";
+                    echo "<a href='./logout.php'>Log Out</a>";
+                }
+            ?>
+        </div>
         <h1>Jobs Board 後台管理</h1>
-        <a href="./add.html">新增職缺</a>
+        <a href="./add.php">新增職缺</a>
         <div class="job__cards">
             <?php
                 $sql = "select * from jobs";
@@ -31,7 +46,6 @@
                                 </div>
                                 <div class="job__time">
                                     <p>更新日期：'.$row['Created'].'</p>
-                                    <p>更新日期：'.$row['Expiry'].'</p>
                                 </div>
                                 <div class="job__link">
                                     <a href="delete.php?id='.$row["Id"].'">刪除職缺</a>

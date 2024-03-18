@@ -28,10 +28,12 @@
                 }else{
                     echo "<p>Welcome, " . $_COOKIE["user_id"] . "</p>";
                     echo "<a href='./logout.php'>Log Out</a>";
+                    echo "<a href='./admin.php'>Admin</a>";
                 }
             ?>
         </div>
         <h1>Jobs Board</h1>
+        
         <div class="order">
             <h3>Order By : </h2>
             <?php
