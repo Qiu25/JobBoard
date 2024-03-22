@@ -22,14 +22,7 @@
         <div class="nav">
             <?php
                 // 檢查用戶是否登入
-                if(!isset($_COOKIE["user_id"])){
-                    echo "<a href='./signup.html'>Sign Up</a>
-                          <a href='./login.html'>Log In</a>";
-                }else{
-                    echo "<p>Welcome, " . $_COOKIE["user_id"] . "</p>";
-                    echo "<a href='./logout.php'>Log Out</a>";
-                    echo "<a href='./admin.php'>Admin</a>";
-                }
+                require_once('./check_login.php');
             ?>
         </div>
         <h1>Jobs Board</h1>

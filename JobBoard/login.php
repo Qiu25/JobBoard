@@ -13,7 +13,7 @@
     }
     
     // 查詢資料庫驗證Email是否存在
-    $sql = "SELECT `Email`, `Password` FROM `user` WHERE `Email` = '$email'";
+    $sql = "SELECT `Email`, `Password`, `Name` FROM `user` WHERE `Email` = '$email'";
     $result = $conn->query($sql);
 
     // 驗證密碼
@@ -22,9 +22,8 @@
       // 驗證成功
       if(password_verify($password, $row["Password"])){
         // 設定Cookie
-        setcookie("user_id", $row["Email"], time()+3600);
-        
-        
+        setcookie("user_email", $row["Email"], time()+3600);
+        setcookie("user_name", $row["Name"], time()+3600);
         // echo $_COOKIE["user_id"];
 
         echo "Login Seccessfull";

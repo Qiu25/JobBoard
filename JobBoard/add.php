@@ -11,12 +11,7 @@
         <div class="nav">
             <?php
                 // 檢查用戶是否登入
-                if(!isset($_COOKIE["user_id"])){
-                    die('<meta http-equiv="refresh" content="1; url=login.html">');
-                }else{
-                    echo "<p>Welcome, " . $_COOKIE["user_id"] . "</p>";
-                    echo "<a href='./logout.php'>Log Out</a>";
-                }
+                require_once("./check_login.php");
             ?>
         </div>
         <h1>Jobs Board - 新增職缺</h1>

@@ -11,12 +11,13 @@
    $link = $_POST['link'];
    $created = (new DateTime())->format('Y-m-d');
    $expiry = ((new DateTime())->modify('+10 days'))->format('Y-m-d');
+   
 
    if(!isset($_COOKIE['user_id'])){
       echo "請先登入會員，頁面即將轉跳";
       die('<meta http-equiv="refresh" content="5; url=./login.html"> ');
    }else{
-      $created_by = $_COOKIE['user_id'];
+     
    }
 
    if(empty($title)|| empty($desc) || empty($salary) || empty($link)){
