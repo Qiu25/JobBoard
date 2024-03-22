@@ -10,7 +10,7 @@
 - [2024/03/13 設置會員登出](https://github.com/Qiu25/JobBoard/tree/main#20240313-%E8%A8%AD%E7%BD%AE%E6%9C%83%E5%93%A1%E7%99%BB%E5%87%BA)
 - [2024/03/14 使用cookie代替sessiob進行登入狀態維持](https://github.com/Qiu25/JobBoard/blob/main/README.md#20240314-%E4%BD%BF%E7%94%A8cookie%E4%BB%A3%E6%9B%BFsessiob%E9%80%B2%E8%A1%8C%E7%99%BB%E5%85%A5%E7%8B%80%E6%85%8B%E7%B6%AD%E6%8C%81)
 - [2024/03/18 設置會員入口 | 未登入者轉跳](https://github.com/Qiu25/JobBoard/blob/main/README.md#20240318-%E8%A8%AD%E7%BD%AE%E6%9C%83%E5%93%A1%E5%85%A5%E5%8F%A3--%E6%9C%AA%E7%99%BB%E5%85%A5%E8%80%85%E8%BD%89%E8%B7%B3)
-- [2024/03/22 細節修改]
+- [2024/03/22 細節修改](https://github.com/Qiu25/JobBoard/blob/main/README.md#20240322-%E7%B4%B0%E7%AF%80%E4%BF%AE%E6%94%B9)
 
 # 介面流程
 
@@ -1535,9 +1535,9 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['login'])){
 ```
 
 # 2024/03/22 細節修改
-．admin.php建立index.php的入口
-．admin.php的到期日及更新日只顯示日期
-．建立check_login.php，將各頁面檢查登入的部分另外導入check_login.php檔案
+- admin.php建立index.php的入口
+- admin.php的到期日及更新日只顯示日期
+- 建立check_login.php，將各頁面檢查登入的部分另外導入check_login.php檔案
 
 ## check_login.php
 
