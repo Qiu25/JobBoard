@@ -8,12 +8,10 @@
 </head>
 <body>
     <div class="container">
-        <div class="nav">
-            <?php
-                // 檢查用戶是否登入
-                require_once("./check_login.php");
-            ?>
-        </div>
+        <?php
+            // 檢查用戶是否登入或是畫面導向
+            require_once("./check_login.php");
+        ?>
         <h1>Jobs Board - 新增職缺</h1>
         <a href="./admin.php">返回後台</a>
         <form method="POST" action="handle_add.php">

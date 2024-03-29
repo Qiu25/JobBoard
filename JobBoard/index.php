@@ -19,12 +19,10 @@
 </head>
 <body>
     <div class="container">
-        <div class="nav">
-            <?php
-                // 檢查用戶是否登入
-                require_once('./check_login.php');
-            ?>
-        </div>
+        <?php
+            // 檢查用戶是否登入
+            require_once('./check_login.php');
+        ?>
         <h1>Jobs Board</h1>
         
         <div class="order">
@@ -76,6 +74,9 @@
                             echo    '</div>';
                             echo    '<div class="job__created">';
                             echo        '<p>更新日期：'. $row['Created'] . '</p>';
+                            echo    '</div>';
+                            echo    '<div calss="job__createdby">';
+                            echo        '<p>建立人員：'. $row['Founder'] .'</p>';
                             echo    '</div>';
                             echo '</div>';
                         }

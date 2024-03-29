@@ -1,4 +1,7 @@
-<?php require('conn.php')?>
+<?php 
+require('conn.php');
+require_once("./check_login.php");
+?>
 
 <?php
     $title = $_POST['title'];

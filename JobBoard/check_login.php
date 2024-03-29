@@ -1,22 +1,22 @@
 <?php
+  require_once("./check_login.php");
 
   $uri = $_SERVER['REQUEST_URI'];
 
-  if(!isset($_COOKIE["user_email"])){
-    echo "<a href='./signup.html'>Sign Up</a>
-          <a href='./login.html'>Log In</a>";
+
+  if(isset($_COOKIE["user_email"])){
+    echo "<div class='nav'>";
+    echo "<p>Welcome, " . $_COOKIE["user_name"] . "</p>";
+    echo "<a href='./add.php'>新增職缺</a>";
+    echo "<a href='./index.php'>回到主頁</a>";
+    echo "<a href='./admin.php'>進入後台</a>";
+    echo "<a href='./logout.php'>帳號登出</a>";
+    echo "</div>";
   }elseif($uri == "/JobBoard/index.php"){
-    echo "<p>Welcome, " . $_COOKIE["user_name"] . "</p>";
-    echo "<a href='./logout.php'>Log Out</a>";
-    echo "<a href='./admin.php'>Admin</a>";
-  }elseif($uri == "/JobBoard/admin.php"){
-    echo "<p>Welcome, " . $_COOKIE["user_name"] . "</p>";
-    echo "<a href='./logout.php'>Log Out</a>";
-    echo "<a href='./index.php'>Index</a>";
-  }elseif($uri == "/JobBoard/add.php"){
-    echo "<p>Welcome, " . $_COOKIE["user_name"] . "</p>";
-    echo "<a href='./logout.php'>Log Out</a>";
-    echo "<a href='./admin.php'>Admin</a>";
-    echo "<a href='./index.php'>Index</a>";
+    echo "<div class='nav'>
+          <a href='./signup.html'>帳號註冊</a>
+          <a href='./login.html'>用戶登入</a>
+          </div>";
   }
+
 ?>

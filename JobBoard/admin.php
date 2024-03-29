@@ -1,6 +1,12 @@
 <?php
     require_once('./conn.php');
-
+    if($_GET){
+        $order = $_GET["order"];
+        $sort = $_GET["sort"];
+        $sql = "SELECT * from jobs ORDER BY $order $sort";
+    }else{
+        $sql = "SELECT * from jobs";
+    }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -12,17 +18,42 @@
 </head>
 <body>
     <div class="container">
-        <div class="nav">
+        <?php
+            // 檢查用戶是否登入
+            require_once('./check_login.php');
+            $user_email = $_COOKIE['user_email'];
+        ?>
+        <h1>Jobs Board 後台管理</h1>
+        <div class="order">
+            <h3>Order By : </h2>
             <?php
-                // 檢查用戶是否登入
-                require_once('./check_login.php');
+            if($_GET){
+                if($sort !== "ASC" && $order == "title"){
+                    echo '<a class="sort_asc" href="admin.php?order=title&sort=ASC">Title</a>';
+                }else{
+                    echo '<a class="sort_desc" href="admin.php?order=title&sort=DESC">Title</a>';
+                }
+                if($sort !== "ASC" && $order == "salary"){
+                    echo '<a class="sort_asc" href="admin.php?order=salary&sort=ASC">Salary</a>';
+                }else{
+                    echo '<a class="sort_desc" href="admin.php?order=salary&sort=DESC">Salary</a>';
+                }
+                if($sort !== "ASC" && $order == "created"){
+                    echo '<a class="sort_asc" href="admin.php?order=created&sort=ASC">CreatTime</a>';
+                }else{
+                    echo '<a class="sort_desc" href="admin.php?order=created&sort=DESC">CreatTime</a>';
+                }
+            }else{
+                echo '<a class="sort_asc" href="admin.php?order=title&sort=ASC">Title</a>'; 
+                echo '<a class="sort_asc" href="admin.php?order=salary&sort=ASC">Salary</a>';
+                echo '<a class="sort_asc" href="admin.php?order=created&sort=ASC">CreatTime</a>';
+            }
+
             ?>
         </div>
-        <h1>Jobs Board 後台管理</h1>
-        <a href="./add.php">新增職缺</a>
         <div class="job__cards">
             <?php
-                $sql = "select * from jobs";
+                $sql = "select * from jobs WHERE `Email` = '$user_email'";
                 $result = $conn -> query($sql);
                 if($result){
                     while($row = $result -> fetch_assoc()){
