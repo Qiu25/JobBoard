@@ -16,7 +16,7 @@
 <body>
     <div class="container">
         <h1>Jobs Board</h1>
-        <a href="./admin.html">返回後台</a>
+        <a href="./admin.php">返回後台</a>
         <form method="POST" action="handle_update.php">
             <div>職缺名稱：<input type="text" name="title" value="<?php echo $row['Title']; ?>"></div>
             <div>職缺描述：<textarea rows="10" name="description"><?php echo $row['Description']; ?></textarea></div>

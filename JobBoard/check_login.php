@@ -12,7 +12,7 @@
     echo "<a href='./admin.php'>進入後台</a>";
     echo "<a href='./logout.php'>帳號登出</a>";
     echo "</div>";
-  }elseif($uri == "/JobBoard/index.php"){
+  }else{
     echo "<div class='nav'>
           <a href='./signup.html'>帳號註冊</a>
           <a href='./login.html'>用戶登入</a>

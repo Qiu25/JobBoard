@@ -25,7 +25,9 @@ form input{
   display: block;
   width: 300px;
   height: 30px;
+  margin: 0 auto;
   text-align: center;
+  font-size: 19px;
   background-color: #eae9e9;
   text-decoration: none;
   color: #000;
