@@ -89,7 +89,7 @@
                                     <p>到期日期：'.$row['Expiry'].'</p>
                                 </div>
                                 <div class="job__link">
-                                    <a href="delete.php?id='.$row["Id"].'">刪除職缺</a>
+                                    <a href="delete.php?del_check=&id='.$row["Id"].'">刪除職缺</a>
                                     <a href="update.php?id='.$row["Id"].'">修改職缺</a>
                                 </div>
                               </div>';

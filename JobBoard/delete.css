@@ -1,0 +1,22 @@
+.container{
+  margin: 100px auto;
+  padding-top: 30px;
+  padding-bottom: 50px;
+  border: 1px solid black;
+  width: 500px;
+  text-align: center;
+  line-height: 2;
+}
+
+a{
+  border: 1px solid black;
+  padding: 5px 30px;
+  margin: 20px;
+  text-decoration: none;
+  color: #000;
+}
+
+a:hover{
+  background: #000;
+  color: #fff;
+}
